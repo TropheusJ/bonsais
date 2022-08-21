@@ -2,23 +2,23 @@
 	"schema_version": 1,
 	"quilt_loader": {
 		"group": "io.github.tropheusj",
-		"id": "modid",
+		"id": "bonsais",
 		"version": "${version}",
 		"metadata": {
-			"name": "Modid",
-			"description": "A short description of your mod.",
+			"name": "Bonsais",
+			"description": "A Minecraft mod about tiny trees. Made for Modfest: Singularity.",
 			"contributors": {
 				"Tropheus Jay": "Owner"
 			},
 			"contact": {
-				"issues": "https://github.com/TropheusJ/quilt-template-mod/issues",
-				"sources": "https://github.com/TropheusJ/quilt-template-mod"
+				"issues": "https://github.com/TropheusJ/bonsais/issues",
+				"sources": "https://github.com/TropheusJ/bonsais"
 			},
-			"icon": "assets/modid/icon.png"
+			"icon": "assets/bonsais/icon.png"
 		},
 		"intermediate_mappings": "net.fabricmc:intermediary",
 		"entrypoints": {
-			"init": "io.github.tropheusj.modid.ExampleMod"
+			"init": "io.github.tropheusj.bonsais.Bonsais"
 		},
 		"depends": [
 			{
@@ -35,5 +35,5 @@
 			}
 		]
 	},
-	"mixin": "modid.mixins.json"
+	"mixin": "bonsais.mixins.json"
 }

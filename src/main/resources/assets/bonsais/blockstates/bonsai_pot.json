@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "bonsais:block/bonsai_pot"
+    }
+  }
+}

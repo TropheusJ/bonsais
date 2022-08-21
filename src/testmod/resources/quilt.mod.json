@@ -2,25 +2,25 @@
 	"schema_version": 1,
 	"quilt_loader": {
 		"group": "io.github.tropheusj",
-		"id": "modid_test",
+		"id": "bonsais_test",
 		"version": "1.0.0",
 		"metadata": {
-			"name": "Modid Test",
-			"description": "A short description of your mod.",
+			"name": "Bonsais Test",
+			"description": "Test mod for Bonsais",
 			"contributors": {
 				"Tropheus Jay": "Owner"
 			},
 			"contact": {
-				"issues": "https://github.com/TropheusJ/quilt-template-mod/issues",
-				"sources": "https://github.com/TropheusJ/quilt-template-mod"
+				"issues": "https://github.com/TropheusJ/bonsais/issues",
+				"sources": "https://github.com/TropheusJ/bonsais"
 			},
-			"icon": "assets/modid_test/icon.png"
+			"icon": "assets/bonsais_test/icon.png"
 		},
 		"intermediate_mappings": "net.fabricmc:intermediary",
 		"entrypoints": {
-			"init": "io.github.tropheusj.modid_test.ExampleModTest",
+			"init": "io.github.tropheusj.bonsais_test.BonsaisTest",
       "fabric-gametest": [
-        "io.github.tropheusj.modid_test.gametest.ExampleModGameTest"
+        "io.github.tropheusj.bonsais_test.gametest.BonsaisGameTest"
       ]
 		}
 	}

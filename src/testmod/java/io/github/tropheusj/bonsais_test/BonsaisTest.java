@@ -1,4 +1,4 @@
-package io.github.tropheusj.modid_test;
+package io.github.tropheusj.bonsais_test;
 
 import net.minecraft.resources.ResourceLocation;
 
@@ -7,7 +7,7 @@ import org.quiltmc.qsl.base.api.entrypoint.ModInitializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ExampleModTest implements ModInitializer {
+public class BonsaisTest implements ModInitializer {
 	public static final String ID = "modid_test";
 	public static final Logger LOGGER = LoggerFactory.getLogger(ID);
 

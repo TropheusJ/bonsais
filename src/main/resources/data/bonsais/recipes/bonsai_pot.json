@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " D ",
+    "BTB",
+    " B "
+  ],
+  "key": {
+    "D": {
+      "tag": "minecraft:dirt"
+    },
+    "B": {
+      "item": "minecraft:brick"
+    },
+    "T": {
+      "tag": "minecraft:terracotta"
+    }
+  },
+  "result": {
+    "item": "bonsais:bonsai_pot",
+    "count": 1
+  }
+}

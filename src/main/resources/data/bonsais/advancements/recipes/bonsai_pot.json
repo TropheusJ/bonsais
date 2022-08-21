@@ -1,0 +1,25 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "bonsais:bonsai_pot",
+      "bonsais:bonsai_pot_from_pot"
+    ]
+  },
+  "criteria": {
+    "has_block": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:dirt",
+              "minecraft:flower_pot",
+              "minecraft:terracotta"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}
