@@ -1,5 +1,6 @@
 {
   "block.bonsais.bonsai_pot": "Bonsai Pot",
+  "itemGroup.bonsais.item_group": "Bonsais",
   "bonsais.error.not_pot": "The targeted block is not a Bonsai Pot.",
   "bonsais.error.filled": "The targeted Bonsai Pot already has a tree in it.",
   "bonsais.error.none_valid": "No valid tree could be planted."

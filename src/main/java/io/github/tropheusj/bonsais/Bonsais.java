@@ -3,10 +3,13 @@ package io.github.tropheusj.bonsais;
 import java.util.List;
 import java.util.Map.Entry;
 
+import net.minecraft.world.item.CreativeModeTab;
+
 import org.quiltmc.loader.api.ModContainer;
 import org.quiltmc.qsl.base.api.entrypoint.ModInitializer;
 import org.quiltmc.qsl.block.extensions.api.QuiltBlockSettings;
 import org.quiltmc.qsl.command.api.CommandRegistrationCallback;
+import org.quiltmc.qsl.item.group.api.QuiltItemGroup;
 import org.quiltmc.qsl.item.setting.api.QuiltItemSettings;
 import org.quiltmc.qsl.registry.api.event.RegistryMonitor;
 import org.slf4j.Logger;
@@ -30,8 +33,9 @@ public class Bonsais implements ModInitializer {
 	public static final String ID = "bonsais";
 	public static final Logger LOGGER = LoggerFactory.getLogger(ID);
 
+	public static final QuiltItemGroup TAB = QuiltItemGroup.create(id("item_group"));
 	public static final Block BONSAI_POT = new BonsaiPotBlock(QuiltBlockSettings.copyOf(Blocks.TERRACOTTA).noOcclusion());
-	public static final Item BONSAI_POT_ITEM = new BlockItem(BONSAI_POT, new QuiltItemSettings());
+	public static final Item BONSAI_POT_ITEM = new BlockItem(BONSAI_POT, new QuiltItemSettings().group(TAB));
 	public static final BlockEntityType<BonsaiPotBlockEntity> BONSAI_POT_TYPE = FabricBlockEntityTypeBuilder
 			.create(BonsaiPotBlockEntity::new, BONSAI_POT).build();
 
@@ -50,6 +54,8 @@ public class Bonsais implements ModInitializer {
 		Registry.register(Registry.BLOCK, id("bonsai_pot"), BONSAI_POT);
 		Registry.register(Registry.ITEM, id("bonsai_pot"), BONSAI_POT_ITEM);
 		Registry.register(Registry.BLOCK_ENTITY_TYPE, id("bonsai_pot"), BONSAI_POT_TYPE);
+
+		TAB.setIcon(BONSAI_POT_ITEM);
 
 		CommandRegistrationCallback.EVENT.register(PlantRandomTreeCommand::register);
 
