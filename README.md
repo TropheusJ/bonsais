@@ -7,6 +7,8 @@ Bonsais is a Minecraft Mod about tiny trees.
 <a href="https://quiltmc.org/">
 <img src="https://github.com/QuiltMC/art/blob/master/brand/512png/quilt_available_dark.png?raw=true" alt="Available for Quilt Loader" width="300">
 </a>
+<br>
+<br>
 
 
 ![All vanilla saplings except dark oak growing in pots](https://github.com/TropheusJ/bonsais/blob/1.19/readme_assets/tree_lineup.png?raw=true)
