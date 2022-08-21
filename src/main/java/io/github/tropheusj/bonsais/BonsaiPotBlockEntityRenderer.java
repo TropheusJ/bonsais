@@ -1,5 +1,8 @@
 package io.github.tropheusj.bonsais;
 
+import java.util.Map;
+import java.util.Map.Entry;
+
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import io.github.tropheusj.bonsais.mixin.LevelRendererAccessor;
@@ -11,9 +14,6 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider.Con
 import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.state.BlockState;
-
-import java.util.Map;
-import java.util.Map.Entry;
 
 public class BonsaiPotBlockEntityRenderer implements BlockEntityRenderer<BonsaiPotBlockEntity> {
 	public static final int TICKS_PER_GROWTH = 10;
@@ -34,7 +34,6 @@ public class BonsaiPotBlockEntityRenderer implements BlockEntityRenderer<BonsaiP
 		matrices.pushPose();
 		matrices.translate(0.45, 0.25, 0.45);
 		matrices.scale(0.1f, 0.1f, 0.1f);
-		int totalBlocks = treeData.size();
 		long toRender = entity.getTreeAge() / TICKS_PER_GROWTH;
 		int rendered = 0;
 		for (Entry<BlockPos, BlockState> entry : treeData.entrySet()) {

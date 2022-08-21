@@ -1,10 +1,10 @@
 package io.github.tropheusj.bonsais;
 
+import org.jetbrains.annotations.ApiStatus.Internal;
+
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.state.BlockState;
-
-import org.jetbrains.annotations.ApiStatus.Internal;
 
 public interface ServerLevelExtensions {
 	void bonsais$enterTreeMode();

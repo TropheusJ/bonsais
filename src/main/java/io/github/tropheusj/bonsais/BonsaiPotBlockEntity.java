@@ -1,5 +1,11 @@
 package io.github.tropheusj.bonsais;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.jetbrains.annotations.Nullable;
+import org.quiltmc.qsl.block.entity.api.QuiltBlockEntity;
+
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
@@ -9,7 +15,9 @@ import net.minecraft.nbt.Tag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SaplingBlock;
@@ -18,20 +26,13 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.grower.AbstractTreeGrower;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkGenerator;
-
 import net.minecraft.world.phys.AABB;
-
 import net.minecraft.world.phys.Vec3;
-
-import org.jetbrains.annotations.Nullable;
-import org.quiltmc.qsl.block.entity.api.QuiltBlockEntity;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class BonsaiPotBlockEntity extends BlockEntity implements QuiltBlockEntity {
 	public static final List<SaplingBlock> FAILED = new ArrayList<>();
 
+	public Item item;
 	public Object2ObjectLinkedOpenHashMap<BlockPos, BlockState> treeData;
 	public long ticksAtTreeAdd = -1;
 	public final AABB bounds;
@@ -46,8 +47,8 @@ public class BonsaiPotBlockEntity extends BlockEntity implements QuiltBlockEntit
 		this(Bonsais.BONSAI_POT_TYPE, blockPos, blockState);
 	}
 
-	public void tick(Level level, BlockPos pos, BlockState state) {
-	}
+//	public void tick(Level level, BlockPos pos, BlockState state) {
+//	}
 
 	public long getTreeAge() {
 		return level.getGameTime() - ticksAtTreeAdd;
@@ -56,12 +57,13 @@ public class BonsaiPotBlockEntity extends BlockEntity implements QuiltBlockEntit
 	@Override
 	public void load(CompoundTag tag) {
 		super.load(tag);
-		this.ticksAtTreeAdd = tag.contains("TicksAtTreeAdd") ? tag.getLong("TicksAtTreeAdd") : -1;
 		if (!tag.contains("TreeData"))
 			return;
+		this.item = Registry.ITEM.get(new ResourceLocation(tag.getString("Item")));
+		this.ticksAtTreeAdd = tag.getLong("TicksAtTreeAdd");
 		ListTag treeData = tag.getList("TreeData", Tag.TAG_COMPOUND);
 		this.treeData = new Object2ObjectLinkedOpenHashMap<>();
-		treeData.forEach((element) -> {
+		for (Tag element : treeData) {
 			if (element instanceof CompoundTag compound) {
 				int x = compound.getInt("X");
 				int y = compound.getInt("Y");
@@ -71,13 +73,25 @@ public class BonsaiPotBlockEntity extends BlockEntity implements QuiltBlockEntit
 				BlockState state = Block.stateById(id);
 				this.treeData.put(pos, state);
 			}
-		});
+		}
+	}
+
+	@Override
+	protected void saveAdditional(CompoundTag nbt) {
+		super.saveAdditional(nbt);
+		this.save(nbt);
 	}
 
 	@Override
 	public CompoundTag getUpdateTag() {
 		CompoundTag tag = super.getUpdateTag();
+		this.save(tag);
+		return tag;
+	}
+
+	public void save(CompoundTag tag) {
 		if (treeData != null) {
+			tag.putString("Item", Registry.ITEM.getKey(item).toString());
 			tag.putLong("TicksAtTreeAdd", ticksAtTreeAdd);
 			ListTag list = new ListTag();
 			treeData.forEach((pos, state) -> {
@@ -90,7 +104,6 @@ public class BonsaiPotBlockEntity extends BlockEntity implements QuiltBlockEntit
 			});
 			tag.put("TreeData", list);
 		}
-		return tag;
 	}
 
 	@Nullable
@@ -99,7 +112,7 @@ public class BonsaiPotBlockEntity extends BlockEntity implements QuiltBlockEntit
 		return ClientboundBlockEntityDataPacket.create(this);
 	}
 
-	public boolean acceptTree(SaplingBlock sapling, AbstractTreeGrower grower) {
+	public boolean acceptTree(Item item, SaplingBlock sapling, AbstractTreeGrower grower) {
 		if (!(level instanceof ServerLevel serverLevel))
 			return false;
 		ChunkGenerator generator = serverLevel.getChunkSource().getGenerator();
@@ -116,6 +129,7 @@ public class BonsaiPotBlockEntity extends BlockEntity implements QuiltBlockEntit
 			}
 			return false;
 		}
+		this.item = item;
 		sortTreeData();
 		ticksAtTreeAdd = serverLevel.getGameTime();
 		setChanged();

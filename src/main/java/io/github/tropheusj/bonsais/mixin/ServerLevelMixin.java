@@ -1,19 +1,17 @@
 package io.github.tropheusj.bonsais.mixin;
 
-import io.github.tropheusj.bonsais.ServerLevelExtensions;
-
-import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
-import net.minecraft.core.BlockPos;
-import net.minecraft.server.level.ServerLevel;
-
-import net.minecraft.world.level.block.state.BlockState;
-
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+import io.github.tropheusj.bonsais.ServerLevelExtensions;
+import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.block.state.BlockState;
 
 @Mixin(ServerLevel.class)
 public class ServerLevelMixin implements ServerLevelExtensions {
