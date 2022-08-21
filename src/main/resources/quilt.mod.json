@@ -18,7 +18,8 @@
 		},
 		"intermediate_mappings": "net.fabricmc:intermediary",
 		"entrypoints": {
-			"init": "io.github.tropheusj.bonsais.Bonsais"
+			"init": "io.github.tropheusj.bonsais.Bonsais",
+      "client_init": "io.github.tropheusj.bonsais.BonsaisClient"
 		},
 		"depends": [
 			{

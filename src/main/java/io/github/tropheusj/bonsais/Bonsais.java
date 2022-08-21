@@ -19,6 +19,11 @@ import org.quiltmc.qsl.item.setting.api.QuiltItemSettings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+
 public class Bonsais implements ModInitializer {
 	public static final String ID = "bonsais";
 	public static final Logger LOGGER = LoggerFactory.getLogger(ID);
@@ -37,5 +42,11 @@ public class Bonsais implements ModInitializer {
 
 	public static ResourceLocation id(String path) {
 		return new ResourceLocation(ID, path);
+	}
+
+	public static <K, V> Map<K, V> entriesToMap(List<Entry<K, V>> entries) {
+		Map<K, V> map = new LinkedHashMap<>();
+		entries.forEach(e -> map.put(e.getKey(), e.getValue()));
+		return map;
 	}
 }
