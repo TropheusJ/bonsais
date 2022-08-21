@@ -7,6 +7,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
@@ -44,9 +45,6 @@ public class BonsaiPotBlock extends BaseEntityBlock {
 
 	@Override
 	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-		if (world.isClientSide()) {
-			return InteractionResult.SUCCESS;
-		}
 		ItemStack held = player.getItemInHand(hand);
 		if (state.getValue(FILLED)) {
 			return InteractionResult.PASS;
@@ -56,6 +54,9 @@ public class BonsaiPotBlock extends BaseEntityBlock {
 				&& sapling instanceof SaplingBlockAccessor access
 				&& world.getBlockEntity(pos) instanceof BonsaiPotBlockEntity pot) {
 
+			if (world.isClientSide()) {
+				return InteractionResult.SUCCESS;
+			}
 			AbstractTreeGrower treeGrower = access.bonsais$treeGrower();
 			boolean accepted = pot.acceptTree(sapling, treeGrower);
 			if (accepted) {

@@ -5,6 +5,7 @@
   "compatibilityLevel": "JAVA_17",
   "mixins": [
     "BiomeManagerAccessor",
+    "LevelMixin",
     "MinecraftServerAccessor",
     "SaplingBlockAccessor",
     "ServerLevelMixin"

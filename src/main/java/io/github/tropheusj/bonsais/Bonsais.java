@@ -1,5 +1,6 @@
 package io.github.tropheusj.bonsais;
 
+import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
@@ -44,8 +45,8 @@ public class Bonsais implements ModInitializer {
 		return new ResourceLocation(ID, path);
 	}
 
-	public static <K, V> Map<K, V> entriesToMap(List<Entry<K, V>> entries) {
-		Map<K, V> map = new LinkedHashMap<>();
+	public static <K, V> Object2ObjectLinkedOpenHashMap<K, V> entriesToMap(List<Entry<K, V>> entries) {
+		Object2ObjectLinkedOpenHashMap<K, V> map = new Object2ObjectLinkedOpenHashMap<>();
 		entries.forEach(e -> map.put(e.getKey(), e.getValue()));
 		return map;
 	}

@@ -1,12 +1,10 @@
 package io.github.tropheusj.bonsais;
 
-import io.github.tropheusj.bonsais.sim.TreePlacementSimulationLevel;
+import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.BlockPos.MutableBlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.LongTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
@@ -29,15 +27,12 @@ import org.jetbrains.annotations.Nullable;
 import org.quiltmc.qsl.block.entity.api.QuiltBlockEntity;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 public class BonsaiPotBlockEntity extends BlockEntity implements QuiltBlockEntity {
 	public static final List<SaplingBlock> FAILED = new ArrayList<>();
 
-	public TreePlacementSimulationLevel simLevel;
-	public Map<BlockPos, BlockState> treeData;
+	public Object2ObjectLinkedOpenHashMap<BlockPos, BlockState> treeData;
 	public long ticksAtTreeAdd = -1;
 	public final AABB bounds;
 
@@ -65,7 +60,7 @@ public class BonsaiPotBlockEntity extends BlockEntity implements QuiltBlockEntit
 		if (!tag.contains("TreeData"))
 			return;
 		ListTag treeData = tag.getList("TreeData", Tag.TAG_COMPOUND);
-		this.treeData = new LinkedHashMap<>();
+		this.treeData = new Object2ObjectLinkedOpenHashMap<>();
 		treeData.forEach((element) -> {
 			if (element instanceof CompoundTag compound) {
 				int x = compound.getInt("X");
@@ -104,22 +99,15 @@ public class BonsaiPotBlockEntity extends BlockEntity implements QuiltBlockEntit
 		return ClientboundBlockEntityDataPacket.create(this);
 	}
 
-	@Override
-	public void setLevel(Level world) {
-		super.setLevel(world);
-		if (world instanceof ServerLevel level) {
-			this.simLevel = TreePlacementSimulationLevel.create(level);
-		}
-	}
-
 	public boolean acceptTree(SaplingBlock sapling, AbstractTreeGrower grower) {
-		if (simLevel == null) {
+		if (!(level instanceof ServerLevel serverLevel))
 			return false;
-		}
-		ChunkGenerator generator = simLevel.getChunkSource().getGenerator();
+		ChunkGenerator generator = serverLevel.getChunkSource().getGenerator();
 		BlockState state = sapling.defaultBlockState();
-		grower.growTree(simLevel, generator, BlockPos.ZERO, state, simLevel.random);
-		treeData = simLevel.finishSimulation();
+		ServerLevelExtensions ex = (ServerLevelExtensions) serverLevel;
+		ex.bonsais$enterTreeMode();
+		grower.growTree(serverLevel, generator, BlockPos.ZERO, state, serverLevel.random);
+		treeData = ex.bonsais$exitTreeMode();
 		if (treeData.isEmpty()) {
 			treeData = null;
 			if (!FAILED.contains(sapling)) {
@@ -129,7 +117,7 @@ public class BonsaiPotBlockEntity extends BlockEntity implements QuiltBlockEntit
 			return false;
 		}
 		sortTreeData();
-		ticksAtTreeAdd = level.getGameTime();
+		ticksAtTreeAdd = serverLevel.getGameTime();
 		setChanged();
 		sync();
 		return true;
