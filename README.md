@@ -1,27 +1,29 @@
-# Quilt Template Mod
+# Bonsais
+Bonsais is a Minecraft Mod about tiny trees.
 
-The official Quilt template Mod. You can use it as a template for your own mods!
+![Made for Modfest Singularity](https://github.com/TropheusJ/bonsais/blob/1.19/readme_assets/modfest_singularity_banner.png?raw=true)
+![Available for Quilt Loader](https://github.com/QuiltMC/art/blob/master/brand/512png/quilt_available_dark.png?raw=true)
 
-## Usage
+![All vanilla saplings except dark oak growing in pots](https://github.com/TropheusJ/bonsais/blob/1.19/readme_assets/tree_lineup.png?raw=true)
 
-In order to use this mod as a template:
+Bonsai Pots can be used to grow miniature versions of any tree with a sapling.
+Start by crafting one with some terracotta, bricks, and dirt.
 
-1. Create a new repository from this template with `Use this template`
-2. Clone the recently-created repo on your PC
-3. Make the necessary changes in order to make it yours:
-    - Update `gradle.properties` in order to use your Maven group and mod ID
-        - If you don't know which Maven group to use, and you are planning to host the mod's source code on GitHub, use `io.github.<Your_Username_Here>`
-    - Update `quilt.mod.json` in order to reflect your mod's metadata
-        - If you are planning to include (jar-in-jar) a mod, don't forget to declare its dependency on it!
-        - The icon provided here is a placeholder one. If you aren't able to replace it yet, you can delete it and remove the "icon" property
-    - Create a LICENSE file for this mod! If you don't know which license to use, check out [here](https://choosealicense.com/).
-        - If you use `LICENSE.md`, don't forget to update the buildscript in order to use that file name!
-        - In `quilt.mod.json`, don't forget to put the license's [SPDX identifier](https://spdx.org/licenses/) under the `"license"` property in `"metadata"`.
-        - The GPLv3 and AGPLv3 are not valid mod licenses, so you can use almost any license except for those.
-    - Update the Java sub-directory structure so it reflects your Maven group
-    - If the dependencies on `gradle/libs.versions.toml` isn't up-to-date, feel free to update them! The [linked utility](https://lambdaurora.dev/tools/import_quilt.html) should help you in this easy and quick process.
-4. The mod is now ready to be worked on!
+![Recipes for Bonsai Pots](https://github.com/TropheusJ/bonsais/blob/1.19/readme_assets/pot_recipe.png?raw=true)
 
-## License
+Once crafted, place it down. Click it with any supported sapling (see below) and watch it grow!
 
-This template on the TropheusJ GitHub is licensed under the [MIT license](./LICENSE).
+### How does it work?
+When planted in the pot, the sapling is simulated and actually grown. Each tree will
+have variation as if it was planted on the ground normally.
+
+### Current Features
+The mod is currently an alpha version. It is not feature complete, and can only be
+used for decoration right now. More features and functionality are planned.
+
+### Supported Saplings
+All vanilla-style saplings should work. This means (almost) all vanilla saplings as well
+as most modded ones should work fine. However, a notable exception is the Dark Oak tree.
+Since it requires a 2x2 of saplings, it can't be grown currently. Fixing this is planned.
+
+Mushroom trees are not yet supported.
